@@ -6,46 +6,53 @@ import android.annotation.TargetApi
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.view.View
-import android.widget.Toast
-import com.hazz.kotlinmvp.net.exception.ExceptionHandle
-import com.seven.zentao.http.ZeoTaoApi
-import com.seven.zentao.utils.MD5Util
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.seven.zentao.contract.LoginContract
+import com.seven.zentao.module.User
+import com.seven.zentao.presenter.LoginPresenter
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
  * A login screen that offers login via email/password.
  */
-class LoginActivity : AppCompatActivity() {
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+class LoginActivity : AppCompatActivity(), LoginContract.ILoginView {
+
+    private var loginPresenter: LoginContract.ILoginPresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        email_sign_in_button.setOnClickListener {
+        loginPresenter = LoginPresenter(this)
 
-            showProgress(true)
-            ZeoTaoApi.loginZeoTao("chen.kunbin", MD5Util.getMD5Encoding("meiyoumima"))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        showProgress(false)
-                        startActivity(Intent(this@LoginActivity, BugListActivity::class.java))
-                    }, {
-                        showProgress(false)
-                        it.printStackTrace()
-                        val exceptionMessage = ExceptionHandle.handleException(it)
-                        Toast.makeText(this, exceptionMessage, Toast.LENGTH_LONG).show()
-                    })
-
+        loginBtn.setOnClickListener {
+            loginPresenter!!.doLogin(username.text.toString(), password.text.toString())
         }
     }
+
+    override fun startLogin() {
+        showProgress(true)
+    }
+
+    override fun stopLogin() {
+        showProgress(false)
+    }
+
+    override fun loginInfoEmpty(message: String) {
+        Snackbar.make(this.window.decorView, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun loginSuccess(user: User) {
+        startActivity(Intent(this, BugListActivity::class.java))
+    }
+
+    override fun loginError(message: String) {
+        Snackbar.make(this.window.decorView, message, Snackbar.LENGTH_LONG).show()
+    }
+
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private fun showProgress(show: Boolean) {
