@@ -28,6 +28,8 @@ class LoginActivity : AppCompatActivity(), LoginContract.ILoginView {
 
         loginPresenter = LoginPresenter(this)
 
+        loginPresenter!!.checkLogin(this)
+
         loginBtn.setOnClickListener {
             loginPresenter!!.doLogin(username.text.toString(), password.text.toString())
         }

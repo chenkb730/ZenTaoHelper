@@ -1,5 +1,6 @@
 package com.seven.zentao.contract
 
+import android.content.Context
 import com.seven.zentao.module.User
 
 /**
@@ -21,5 +22,7 @@ class LoginContract {
 
     interface ILoginPresenter {
         fun doLogin(userName: String, password: String)
+
+        fun checkLogin(context: Context)
     }
 }

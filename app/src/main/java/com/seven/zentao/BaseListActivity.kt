@@ -19,12 +19,28 @@ abstract class BaseListActivity : AppCompatActivity() {
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         recyclerView.layoutManager = layoutManager
 
+        refreshLayout.setOnRefreshListener {
+            loadData()
+        }
+
+        actionBtn.setOnClickListener {
+            if (!refreshLayout.isRefreshing) {
+                refreshLayout.isRefreshing = true
+                loadData()
+            }
+        }
+
+        refreshLayout.isRefreshing = true
         loadData()
-
-
     }
 
 
     abstract fun loadData()
+
+    fun refreshComplete() {
+        if (refreshLayout.isRefreshing) {
+            refreshLayout.isRefreshing = false
+        }
+    }
 
 }

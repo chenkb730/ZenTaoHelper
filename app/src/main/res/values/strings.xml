@@ -4,6 +4,9 @@
     <string name="prompt_email">用戶名</string>
     <string name="prompt_password">密码</string>
     <string name="action_sign_in">登录</string>
-    <string name="bug_list">BugList</string>
-
+    <string name="bug_list">所有</string>
+    <string name="assignedTo">指派给我</string>
+    <string name="openedBy">由我创建</string>
+    <string name="resolvedBy">由我解决</string>
+    <string name="closedBy">由我关闭</string>
 </resources>

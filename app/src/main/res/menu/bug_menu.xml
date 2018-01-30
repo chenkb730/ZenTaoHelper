@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/bugs"
+        android:title="@string/bug_list"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/assignedTo"
+        android:title="@string/assignedTo"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/openedBy"
+        android:title="@string/openedBy"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/resolvedBy"
+        android:title="@string/resolvedBy"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/closedBy"
+        android:title="@string/closedBy"
+        app:showAsAction="never"/>
+
+
+</menu>

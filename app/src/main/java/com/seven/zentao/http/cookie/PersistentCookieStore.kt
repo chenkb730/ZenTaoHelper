@@ -2,8 +2,6 @@ package com.seven.zentao.http.cookie
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
-import android.support.annotation.RequiresApi
 import android.text.TextUtils
 import android.util.Log
 import okhttp3.Cookie
